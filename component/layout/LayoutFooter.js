@@ -36,7 +36,7 @@ export default class LayoutFooter extends Component {
           </Button>
           <Button vertical active={this.state.current === 'newcard' ? true : false} onPress={() => this.footerMenu('newcard')}>
             <Icon name="md-add-circle" />
-            <Text>Create New Card</Text>
+            <Text>Create Card</Text>
           </Button>
           <Button vertical active={this.state.current === 'scancard' ? true : false} onPress={() => this.footerMenu('newcard')}>
             <Icon name="md-qr-scanner" />
