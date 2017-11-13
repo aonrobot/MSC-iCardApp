@@ -16,7 +16,7 @@ export default class LayoutHeader extends Component {
         <Header style={{backgroundColor : "#1abc9c"}}>
           <StatusBar backgroundColor="#1abc9c"barStyle="light-content" />
             <Body>
-              <Title style={{fontSize:19}}> {this.state.title}</Title>
+              <Title style={{fontSize:19,color:"white"}}> {this.state.title}</Title>
             </Body>
         </Header>
     );

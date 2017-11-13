@@ -64,8 +64,8 @@ export default class ViewCard extends Component {
         </View>
         <View style={styles.btnWrapper}>
           <Button rounded iconLeft danger onPress={() => this._onPressDeleteBtn()}>
-            <Icon name='md-checkmark-circle' />
-            <Text>ลบ E-Business นี้</Text>
+            <Icon name='md-trash' />
+            <Text>ลบ</Text>
           </Button>
         </View>
       </Content>
