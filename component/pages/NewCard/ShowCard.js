@@ -67,7 +67,7 @@ export default class ShowCard extends Component {
   }
 
   async genQr(){
-    let genCardUrl = 'http://103.86.49.29/qrlab/genCard.php';
+    let genCardUrl = 'http://mis_test.metrosystems.co.th/qrlab/business_card/genCard.php';
     let para = '%3FnTH=' + this.state.nameTH +
                '%26lnTH=' + this.state.lastnameTH  +
                '%26nEN=' + this.state.nameEN  +
