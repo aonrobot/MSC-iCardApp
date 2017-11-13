@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, View, Alert } from 'react-native';
+import { StyleSheet, AsyncStorage, Image, View, Alert } from 'react-native';
 import { Container, Header, Content,
      Button, Text, Icon, Form, Item,
      Label, Input, List, Card, CardItem,
@@ -10,23 +10,63 @@ import LayoutHeader from '../layout/LayoutHeader'
 import {Actions} from 'react-native-router-flux'
 
 export default class ViewCard extends Component {
-    constructor(props){
-        super(props)
-        this.state = {headerTiile : 'Auttawut Wiriyakreng'}
-    }
+  constructor(props){
+      super(props)
+      this.state = {
+        headerTiile : 'Auttawut Wiriyakreng',
+        cards : {all : []},
+        qrImageUrl : ''
+      }
+  }
+
+  _onPressDeleteBtn (){
+    this._deleteCard()
+  }
+
+  async _deleteCard() {
+
+    let cards = this.state.cards
+    cards.all.splice(this.props.cardId, 1)
+    console.log('deleteCard', cards)
+    
+    await AsyncStorage.setItem('@cards', JSON.stringify(cards))
+
+    Actions.mycard({currentFooterMenu : 'mycard'})
+  }
+
+  async _updateList () {
+    
+    let result = await AsyncStorage.getItem('@cards');
+    let getCards = await JSON.parse(result) || {all : []}
+    this.setState({cards : getCards})
+
+    console.log('card at index 0', getCards.all[this.props.cardId])
+    let card = getCards.all[this.props.cardId]
+    this.setState({qrImageUrl : card.qrImageUrl})
+    
+    //this._changeTextInputValue('')
+
+  }
+
+  componentWillMount(){
+    this._updateList()
+  }
 
   render() {
-    let genCardUrl = 'http://103.86.49.29/qrlab/genCard.php';
-    let para = '%3FnTH=' + this.state.nameTH + '%26lnTH=' + this.state.lastnameTH  + '%26nEN=' + this.state.nameEN  + '%26lnEN=' + this.state.lastnameEN + '%26pos=' + this.state.position + '%26tel=' + this.state.contact + '%26email=' + this.state.email + '%26d=' + this.state.department
-    let src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" + genCardUrl + para + "&choe=UTF-8"
     return (
     <Container>
       <LayoutHeader title={this.state.headerTiile}/>
       <Content style={styles.container}>
         <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>
         <View style={styles.qrWrapper}>
-          <Image source={{uri: src}}
+          <Image source={{uri: this.state.qrImageUrl}}
                   style={{width: 380, height: 380}} />
+        </View>
+        <View style={styles.btnWrapper}>
+          <Button rounded iconLeft danger onPress={() => this._onPressDeleteBtn()}>
+            <Icon name='md-checkmark-circle' />
+            <Text>ลบ E-Business นี้</Text>
+          </Button>
         </View>
       </Content>
     </Container>

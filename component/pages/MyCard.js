@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Button } from 'native-base';
 
 import LayoutHeader from '../layout/LayoutHeader'
@@ -11,20 +11,55 @@ export default class MyCard extends Component {
         super(props)
         this.state = {
             headerTiile : 'My E-Card',
-            cardId : 0
+            cards : {all : []} 
         }
+        console.log('welcome')
     }
-    _onPressViewCard (){
+
+    _onPressViewCard (id){
         //alert(this.state.info.nameTH)
-        Actions.viewcard({cardId : this.state.cardId})
+        Actions.viewcard({cardId : id})
     }
+
+    async _updateList () {
+        
+        let result = await AsyncStorage.getItem('@cards');
+        let getCards = await JSON.parse(result) || {all : []}
+        console.log('get Card', getCards)
+        this.setState({cards : getCards.all})
+        
+        //this._changeTextInputValue('')
+
+    }
+
+    componentWillMount(){
+        this._updateList()
+    }
+    
     render() {
+
       return (
         <Container>
             <LayoutHeader title={this.state.headerTiile}/>
             <Content style={styles.container}>
                 <List>
-                    <ListItem>
+                    {
+                        [...this.state.cards].map(
+                            (x, i) => 
+                            <ListItem key={i}>
+                                {/*<Thumbnail size={80} source={{ uri: x.avatar }} />*/}
+                                <Body>
+                                    <Text>{x.nameEN} {x.lastEN}</Text>
+                                    <Text note>{x.position} ({x.department})</Text>
+                                    <Text note>{x.company}</Text>
+                                </Body>
+                                <Button bordered onPress={() => this._onPressViewCard(i)}>
+                                    <Text>View</Text>
+                                </Button>
+                            </ListItem>
+                        )
+                    }
+                    {/*<ListItem>
                         <Thumbnail size={80} source={{ uri: 'https://scontent.fbkk13-1.fna.fbcdn.net/v/t1.0-9/10892011_823160194391711_4434570603349381728_n.jpg?_nc_eui2=v1%3AAeFnepO4dQbvHZXHtUcl8JlMiJUEV9yfTaeJ7h_-SGL9GjSjT_eRDTvl6u3qanItqsD0hyy7AJrUU8M1D3qA5aPuEO73jWDZjVOLt2AOwmOeAQ&oh=5937b8ad051619f1d06379f6073d2b3e&oe=5A9A4E37' }} />
                         <Body>
                             <Text>Auttawut Wiriyakreng</Text>
@@ -45,7 +80,7 @@ export default class MyCard extends Component {
                         <Button bordered>
                             <Text>View</Text>
                         </Button>
-                    </ListItem>
+                    </ListItem>*/}
                 </List>
             </Content>
         </Container>

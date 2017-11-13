@@ -16,14 +16,19 @@ export default class CardInfo extends Component {
         this.state = {
             headerTiile : 'Create New E-Business Card',
             info : {
-                nameTH : 'dasd',
+                nameTH : '',
                 lastnameTH : '',
                 nameEN : '',
                 lastnameEN : '',
                 position : '',
                 department : '',
-                contact : '',
-                email : ''
+                contactTel : '',
+                contactDir : '',
+                contactFax : '',
+                email : '',
+                company : 'MetroSystems',
+                avatar : "",
+                qrImageUrl : ""
             }
         }
     }
@@ -86,6 +91,17 @@ export default class CardInfo extends Component {
                             ))}/>
                         </Item>
                         <Item stackedLabel>
+                            <Label>บริษัท</Label>
+                            <Input onChangeText={(text) => this.setState(
+                                prevState => ({
+                                    info: {
+                                        ...prevState.info,
+                                        company : text
+                                    }
+                                }
+                            ))} value="MetroSystems"/>
+                        </Item>
+                        <Item stackedLabel>
                             <Label>ตำแหน่ง</Label>
                             <Input onChangeText={(text) => this.setState(
                                 prevState => ({
@@ -108,12 +124,34 @@ export default class CardInfo extends Component {
                             ))}/>
                         </Item>
                         <Item stackedLabel>
-                            <Label>เบอร์โทรศัพท์ที่สามารถติดต่อได้</Label>                           
+                            <Label>เบอร์โทรศัพท์</Label>                           
                             <Input onChangeText={(text) => this.setState(
                                 prevState => ({
                                     info: {
                                         ...prevState.info,
-                                        contact : text
+                                        contactTel : text
+                                    }
+                                }
+                            ))}/>
+                        </Item>
+                        <Item stackedLabel>
+                            <Label>เบอร์โทรศัพท์ตรง</Label>                           
+                            <Input onChangeText={(text) => this.setState(
+                                prevState => ({
+                                    info: {
+                                        ...prevState.info,
+                                        contactDir : text
+                                    }
+                                }
+                            ))}/>
+                        </Item>
+                        <Item stackedLabel>
+                            <Label>เบอร์ Fax</Label>                           
+                            <Input onChangeText={(text) => this.setState(
+                                prevState => ({
+                                    info: {
+                                        ...prevState.info,
+                                        contactFax : text
                                     }
                                 }
                             ))}/>
