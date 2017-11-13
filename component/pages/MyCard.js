@@ -49,7 +49,7 @@ export default class MyCard extends Component {
                             <ListItem key={i}>
                                 {/*<Thumbnail size={80} source={{ uri: x.avatar }} />*/}
                                 <Body>
-                                    <Text>{x.nameEN} {x.lastEN}</Text>
+                                    <Text>{x.nameEN} {x.lastnameEN}</Text>
                                     <Text note>{x.position} ({x.department})</Text>
                                     <Text note>{x.company}</Text>
                                 </Body>
