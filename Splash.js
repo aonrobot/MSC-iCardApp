@@ -8,8 +8,8 @@ import {Actions} from 'react-native-router-flux'
 import { Container, Header, Content, Button, Text, Icon } from 'native-base';
 export default class Splash extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
     }
 
     render() {

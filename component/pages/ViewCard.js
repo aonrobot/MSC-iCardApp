@@ -13,7 +13,7 @@ export default class ViewCard extends Component {
   constructor(props){
       super(props)
       this.state = {
-        headerTiile : 'Auttawut Wiriyakreng',
+        headerTiile : this.props.fullName,
         cards : {all : []},
         qrImageUrl : ''
       }

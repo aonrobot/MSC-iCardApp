@@ -16,9 +16,10 @@ export default class MyCard extends Component {
         console.log('welcome')
     }
 
-    _onPressViewCard (id){
+    _onPressViewCard (id, name, lastName){
         //alert(this.state.info.nameTH)
-        Actions.viewcard({cardId : id})
+        let fullName = name + ' ' + lastName
+        Actions.viewcard({cardId : id, fullName : fullName})
     }
 
     async _updateList () {
@@ -47,14 +48,14 @@ export default class MyCard extends Component {
                         [...this.state.cards].map(
                             (x, i) => 
                             <ListItem key={i}>
-                                <Thumbnail style={styles.avatar} large source={{ uri: x.avatar }} />
+                                <Thumbnail square source={{ uri: x.avatar }} />
                                 <Body>
                                     <Text>{x.nameEN} {x.lastnameEN}</Text>
                                     <Text note>{x.position} ({x.department})</Text>
                                     <Text note>{x.company}</Text>
                                 </Body>
                                 <View style={styles.viewBtnWrapper}>
-                                    <Button bordered onPress={() => this._onPressViewCard(i)}>
+                                    <Button bordered onPress={() => this._onPressViewCard(i, x.nameEN, x.lastnameEN)}>
                                         <Text>View</Text>
                                     </Button>
                                 </View>
