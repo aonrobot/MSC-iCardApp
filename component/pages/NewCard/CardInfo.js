@@ -99,7 +99,7 @@ export default class CardInfo extends Component {
                                         company : text
                                     }
                                 }
-                            ))} defaultValue='Metro Systems Corporation Plc.'/>
+                            ))} defaultValue='Metro Systems Corporation Plc'/>
                         </Item>
                         <Item stackedLabel>
                             <Label>ตำแหน่ง</Label>

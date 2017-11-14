@@ -26,13 +26,13 @@ export default class App extends Component<{}> {
   constructor(props){
     super(props)
     this.state = {
-      headerTiile : 'iCard',
-      currentMenu : 'mucard'
+      headerTiile : 'iCard'
     }
     //alert('constructor run')
   }
 
   handleBackButton = () => {
+    console.log(Actions.state.index)
     if (Actions.state.index === 0) {
       Alert.alert(
         'Do you want to exit app!!',
@@ -44,9 +44,6 @@ export default class App extends Component<{}> {
         { cancelable: false }
       )
       
-    }
-    else if(Actions.state.index === 1){
-      this.setState({current : 'mycard'})
     }
 
     Actions.pop();
@@ -70,13 +67,13 @@ export default class App extends Component<{}> {
                 <Scene key="splash" component={Splash} hideNavBar={true} initial/>
                 <Scene key="mycard" component={MyCard} title="Card ทั้งหมดของฉัน" hideNavBar={true} type="replace"/>
                 <Scene key="viewcard" component={ViewCard} hideNavBar={true}/>
-                <Scene key='newcard' hideNavBar={true}>
-                    <Scene key="cardinfo" component={CardInfo} hideNavBar={true} initial/>
-                    <Scene key="showcard" component={ShowCard} hideNavBar={true}/>
-                </Scene>
+
+                <Scene key="cardinfo" component={CardInfo} hideNavBar={true} type="replace"/>
+                <Scene key="showcard" component={ShowCard} hideNavBar={true}/>
+
             </Scene>
         </Router>
-        <LayoutFooter current={this.state.currentMenu}/>
+        <LayoutFooter/>
       </Container>
     );
   }

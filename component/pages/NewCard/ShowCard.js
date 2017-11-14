@@ -40,7 +40,7 @@ export default class ShowCard extends Component {
   async _addCard() {
     let readCard = await AsyncStorage.getItem('@cards');
     let cards = JSON.parse(readCard) || {all : []}
-    console.log('cards', cards.all)
+
     cards.all.push(
       {
         nameTH : this.props.info.nameTH,
@@ -58,11 +58,9 @@ export default class ShowCard extends Component {
         qrImageUrl : this.state.qrImageUrl
       }
     )
-    console.log('addCard', cards)
+
     await AsyncStorage.setItem('@cards', JSON.stringify(cards))
 
-    let allKey = await AsyncStorage.getAllKeys()
-    console.log('allKey', allKey)
     Actions.mycard({currentFooterMenu : 'mycard'})
   }
 
