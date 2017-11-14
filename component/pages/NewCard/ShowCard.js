@@ -54,7 +54,7 @@ export default class ShowCard extends Component {
         contactFax : this.props.info.contactFax,
         email : this.props.info.email,
         company :  this.props.info.company,
-        avatar : this.props.info.avatar,
+        avatar : this.state.qrImageUrl, // Will Change in feature change to real avatar
         qrImageUrl : this.state.qrImageUrl
       }
     )

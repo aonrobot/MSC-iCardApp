@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Button } from 'native-base';
 
 import LayoutHeader from '../layout/LayoutHeader'
@@ -47,15 +47,17 @@ export default class MyCard extends Component {
                         [...this.state.cards].map(
                             (x, i) => 
                             <ListItem key={i}>
-                                {/*<Thumbnail size={80} source={{ uri: x.avatar }} />*/}
+                                <Thumbnail style={styles.avatar} large source={{ uri: x.avatar }} />
                                 <Body>
                                     <Text>{x.nameEN} {x.lastnameEN}</Text>
                                     <Text note>{x.position} ({x.department})</Text>
                                     <Text note>{x.company}</Text>
                                 </Body>
-                                <Button bordered onPress={() => this._onPressViewCard(i)}>
-                                    <Text>View</Text>
-                                </Button>
+                                <View style={styles.viewBtnWrapper}>
+                                    <Button bordered onPress={() => this._onPressViewCard(i)}>
+                                        <Text>View</Text>
+                                    </Button>
+                                </View>
                             </ListItem>
                         )
                     }
@@ -91,5 +93,14 @@ export default class MyCard extends Component {
 const styles = StyleSheet.create({
     container : {
         backgroundColor : '#FFF',
+    },
+    avatar : {
+        width: 100,
+        height:100
+    },
+    viewBtnWrapper : {
+        flex : 1,
+        flexDirection : 'row',
+        justifyContent : 'flex-end'
     }
 })
