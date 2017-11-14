@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, AsyncStorage } from 'react-native';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Button } from 'native-base';
+import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Button, Icon } from 'native-base';
 
 import LayoutHeader from '../layout/LayoutHeader'
 
