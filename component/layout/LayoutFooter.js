@@ -10,18 +10,22 @@ export default class LayoutFooter extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    this.footerMenu(nextProps.current)
+    //this.footerMenu(nextProps.current)
   }
 
   footerMenu(menu){
     switch(menu){
       case 'mycard' :
         this.setState({current : 'mycard'})
+        Actions.state.index = 0
+        console.log('My Card Click', Actions.state.index)
         Actions.mycard()
       break;
       case 'newcard' :
         this.setState({current : 'newcard'})
-        Actions.newcard()
+        Actions.state.index = 0
+        console.log('New Card Click', Actions.state.index)        
+        Actions.cardinfo()
       break;
     }
   }

@@ -8,8 +8,8 @@ import {Actions} from 'react-native-router-flux'
 import { Container, Header, Content, Button, Text, Icon } from 'native-base';
 export default class Splash extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
     }
 
     render() {
@@ -22,7 +22,7 @@ export default class Splash extends Component {
             />
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>iCard</Text>
-                <Text style={styles.subtitle}>Powered By MSCApp</Text>
+                <Text style={styles.subtitle}>Powered By MSC</Text>
                 <View style={styles.buttonContainer}>
                     {/*<Button rounded info onPress={() => Actions.mycard()}>
                         <Text><Icon ios='ios-home' android="md-home" style={styles.icon}/> เริ่มใช้งาน</Text>

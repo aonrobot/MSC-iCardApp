@@ -4,9 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar
+  StatusBar,
+  BackHandler,
+  Alert
 } from 'react-native';
-import {Router, Scene} from 'react-native-router-flux'
+import {Router, Scene, Actions} from 'react-native-router-flux'
 
 import { Container } from 'native-base';
 
@@ -23,8 +25,37 @@ export default class App extends Component<{}> {
 
   constructor(props){
     super(props)
-    this.state = {headerTiile : 'iCard'}
+    this.state = {
+      headerTiile : 'iCard'
+    }
     //alert('constructor run')
+  }
+
+  handleBackButton = () => {
+    console.log(Actions.state.index)
+    if (Actions.state.index === 0) {
+      Alert.alert(
+        'Do you want to exit app!!',
+        'press ok to exit app',
+        [
+          {text: 'Cancel', onPress: () => false, style: 'cancel'},
+          {text: 'OK', onPress: () => BackHandler.exitApp()},
+        ],
+        { cancelable: false }
+      )
+      
+    }
+
+    Actions.pop();
+    return true;
+  }
+
+  componentDidMount() {
+      BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   render() {
@@ -34,15 +65,15 @@ export default class App extends Component<{}> {
         <Router>  
             <Scene key='root'>
                 <Scene key="splash" component={Splash} hideNavBar={true} initial/>
-                <Scene key="mycard" component={MyCard} title="Card ทั้งหมดของฉัน" hideNavBar={true} />
-                <Scene key="viewcard" component={ViewCard} hideNavBar={true} />
-                <Scene key='newcard' hideNavBar={true} >
-                    <Scene key="cardinfo" component={CardInfo} hideNavBar={true} initial/>
-                    <Scene key="showcard" component={ShowCard} hideNavBar={true}/>
-                </Scene>
+                <Scene key="mycard" component={MyCard} title="Card ทั้งหมดของฉัน" hideNavBar={true} type="replace"/>
+                <Scene key="viewcard" component={ViewCard} hideNavBar={true}/>
+
+                <Scene key="cardinfo" component={CardInfo} hideNavBar={true} type="replace"/>
+                <Scene key="showcard" component={ShowCard} hideNavBar={true}/>
+
             </Scene>
         </Router>
-        <LayoutFooter current={this.props.currentFooterMenu}/>
+        <LayoutFooter/>
       </Container>
     );
   }

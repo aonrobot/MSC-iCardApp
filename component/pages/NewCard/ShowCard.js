@@ -40,7 +40,7 @@ export default class ShowCard extends Component {
   async _addCard() {
     let readCard = await AsyncStorage.getItem('@cards');
     let cards = JSON.parse(readCard) || {all : []}
-    console.log('cards', cards.all)
+
     cards.all.push(
       {
         nameTH : this.props.info.nameTH,
@@ -54,15 +54,13 @@ export default class ShowCard extends Component {
         contactFax : this.props.info.contactFax,
         email : this.props.info.email,
         company :  this.props.info.company,
-        avatar : this.props.info.avatar,
+        avatar : this.state.qrImageUrl, // Will Change in feature change to real avatar
         qrImageUrl : this.state.qrImageUrl
       }
     )
-    console.log('addCard', cards)
+
     await AsyncStorage.setItem('@cards', JSON.stringify(cards))
 
-    let allKey = await AsyncStorage.getAllKeys()
-    console.log('allKey', allKey)
     Actions.mycard({currentFooterMenu : 'mycard'})
   }
 

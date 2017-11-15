@@ -77,7 +77,7 @@ export default class CardInfo extends Component {
                                         nameEN : text
                                     }
                                 }
-                            ))}/>
+                            ))} keyboardType = 'name-phone-pad'/>
                         </Item>
                         <Item stackedLabel>
                             <Label>นามสกุล (ภาษาอังกฤษ)</Label>
@@ -88,7 +88,7 @@ export default class CardInfo extends Component {
                                         lastnameEN : text
                                     }
                                 }
-                            ))}/>
+                            ))} keyboardType = 'name-phone-pad'/>
                         </Item>
                         <Item stackedLabel>
                             <Label>บริษัท</Label>
@@ -99,7 +99,7 @@ export default class CardInfo extends Component {
                                         company : text
                                     }
                                 }
-                            ))} value="MetroSystems"/>
+                            ))} defaultValue='Metro Systems Corporation Plc'/>
                         </Item>
                         <Item stackedLabel>
                             <Label>ตำแหน่ง</Label>
@@ -132,7 +132,7 @@ export default class CardInfo extends Component {
                                         contactTel : text
                                     }
                                 }
-                            ))}/>
+                            ))} keyboardType = 'phone-pad'/>
                         </Item>
                         <Item stackedLabel>
                             <Label>เบอร์โทรศัพท์ตรง</Label>                           
@@ -143,7 +143,7 @@ export default class CardInfo extends Component {
                                         contactDir : text
                                     }
                                 }
-                            ))}/>
+                            ))} keyboardType = 'phone-pad'/>
                         </Item>
                         <Item stackedLabel>
                             <Label>เบอร์ Fax</Label>                           
@@ -154,7 +154,7 @@ export default class CardInfo extends Component {
                                         contactFax : text
                                     }
                                 }
-                            ))}/>
+                            ))} keyboardType = 'phone-pad'/>
                         </Item>
                         <Item stackedLabel>
                             <Label>อีเมลล์</Label>
@@ -165,7 +165,7 @@ export default class CardInfo extends Component {
                                         email : text
                                     }
                                 }
-                            ))}/>
+                            ))} keyboardType = 'email-address'/>
                         </Item>
                     </Form>
                 </View>
