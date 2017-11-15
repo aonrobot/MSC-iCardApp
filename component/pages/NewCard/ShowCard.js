@@ -4,6 +4,9 @@ import { Container, Header, Content,
      Button, Text, Icon, Form, Item,
      Label, Input, List, Card, CardItem,
      Left, Right, Body, Thumbnail} from 'native-base';
+
+import LayoutHeader from '../../layout/LayoutHeader'
+
 import {Actions} from 'react-native-router-flux'
 
 
@@ -12,7 +15,7 @@ export default class ShowCard extends Component {
   constructor(props){
       super(props)
       this.state = {
-        headerTiile : 'iCard',
+        headerTiile : 'นี่คือ E-Business Card ของคุณ',
 
         cards : [],
 
@@ -87,8 +90,9 @@ export default class ShowCard extends Component {
   render() {
     return (
     <Container>
+      <LayoutHeader title={this.state.headerTiile} />
       <Content style={styles.container}>
-        <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>
+        {/*<Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>*/}
         <View style={styles.qrWrapper}>
           <Image source={{uri: this.state.qrImageUrl}}
                   style={{width: 380, height: 380}} />
