@@ -23,7 +23,7 @@ export default class LayoutHeader extends Component {
     let backBtn
     
     if(this.state.callFrom === 'showcard' || this.state.callFrom === 'viewcard'){
-      backBtn = <Button transparent white onPress = {() => this._backBtn()}><Icon name='md-arrow-back' /></Button>
+      backBtn = <Button transparent onPress = {() => this._backBtn()}><Icon style={{color:'white'}} name='md-arrow-back' /></Button>
     }
     
     return (

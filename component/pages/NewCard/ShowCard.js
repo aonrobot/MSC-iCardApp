@@ -15,7 +15,7 @@ export default class ShowCard extends Component {
   constructor(props){
       super(props)
       this.state = {
-        headerTiile : 'นี่คือ E-Business Card ของคุณ',
+        headerTiile : 'E-Business Card ของคุณ',
         headerPage : 'showcard',
 
         cards : [],
@@ -74,7 +74,7 @@ export default class ShowCard extends Component {
     let questionMark = '%3F'
     let ampersand = '%26'
 
-    if(Platform.OS === 'ios'){
+    if(Platform.OS !== 'ios'){
       questionMark = '?'
       ampersand = '&'
     }
@@ -89,7 +89,8 @@ export default class ShowCard extends Component {
                ampersand + 'fax=' + this.state.contactFax +
                ampersand + 'email=' + this.state.email +
                ampersand + 'd=' + this.state.department
-    let src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" + genCardUrl + para + "&choe=UTF-8"
+    console.log('para qr code', encodeURIComponent(para))
+    let src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" + genCardUrl + encodeURIComponent(para) + "&choe=UTF-8"
     await this.setState({qrImageUrl : src})
   }
 
