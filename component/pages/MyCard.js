@@ -100,8 +100,6 @@ const styles = StyleSheet.create({
         height:100
     },
     viewBtnWrapper : {
-        flex : 1,
-        flexDirection : 'row',
-        justifyContent : 'flex-end'
+        
     }
 })

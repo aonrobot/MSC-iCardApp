@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, AsyncStorage, Image, View, Alert } from 'react-native';
+import { StyleSheet, AsyncStorage, Image, View, Alert, Platform } from 'react-native';
 import { Container, Header, Content,
      Button, Text, Icon, Form, Item,
      Label, Input, List, Card, CardItem,
@@ -16,6 +16,7 @@ export default class ShowCard extends Component {
       super(props)
       this.state = {
         headerTiile : 'นี่คือ E-Business Card ของคุณ',
+        headerPage : 'showcard',
 
         cards : [],
 
@@ -69,16 +70,25 @@ export default class ShowCard extends Component {
 
   async genQr(){
     let genCardUrl = 'http://mis_test.metrosystems.co.th/qrlab/business_card/genCard.php';
-    let para = '%3FnTH=' + this.state.nameTH +
-               '%26lnTH=' + this.state.lastnameTH  +
-               '%26nEN=' + this.state.nameEN  +
-               '%26lnEN=' + this.state.lastnameEN +
-               '%26pos=' + this.state.position +
-               '%26tel=' + this.state.contactTel +
-               '%26dir=' + this.state.contactDir +
-               '%26fax=' + this.state.contactFax +
-               '%26email=' + this.state.email +
-               '%26d=' + this.state.department
+    
+    let questionMark = '%3F'
+    let ampersand = '%26'
+
+    if(Platform.OS === 'ios'){
+      questionMark = '?'
+      ampersand = '&'
+    }
+
+    let para = questionMark + 'nTH=' + this.state.nameTH +
+               ampersand + 'lnTH=' + this.state.lastnameTH  +
+               ampersand + 'nEN=' + this.state.nameEN  +
+               ampersand + 'lnEN=' + this.state.lastnameEN +
+               ampersand + 'pos=' + this.state.position +
+               ampersand + 'tel=' + this.state.contactTel +
+               ampersand + 'dir=' + this.state.contactDir +
+               ampersand + 'fax=' + this.state.contactFax +
+               ampersand + 'email=' + this.state.email +
+               ampersand + 'd=' + this.state.department
     let src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" + genCardUrl + para + "&choe=UTF-8"
     await this.setState({qrImageUrl : src})
   }
@@ -90,7 +100,7 @@ export default class ShowCard extends Component {
   render() {
     return (
     <Container>
-      <LayoutHeader title={this.state.headerTiile} />
+      <LayoutHeader title={this.state.headerTiile} page={this.state.headerPage} />
       <Content style={styles.container}>
         {/*<Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>*/}
         <View style={styles.qrWrapper}>

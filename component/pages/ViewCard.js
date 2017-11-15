@@ -14,6 +14,7 @@ export default class ViewCard extends Component {
       super(props)
       this.state = {
         headerTiile : this.props.fullName,
+        headerPage : 'viewcard',
         cards : {all : []},
         qrImageUrl : ''
       }
@@ -55,7 +56,7 @@ export default class ViewCard extends Component {
   render() {
     return (
     <Container>
-      <LayoutHeader title={this.state.headerTiile}/>
+      <LayoutHeader title={this.state.headerTiile} page={this.state.headerPage}/>
       <Content style={styles.container}>
         <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>
         <View style={styles.qrWrapper}>
