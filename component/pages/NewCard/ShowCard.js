@@ -74,7 +74,7 @@ export default class ShowCard extends Component {
     let questionMark = '%3F'
     let ampersand = '%26'
 
-    if(Platform.OS !== 'ios'){
+    if(Platform.OS == 'ios' || Platform.OS == 'android'){
       questionMark = '?'
       ampersand = '&'
     }
