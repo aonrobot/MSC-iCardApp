@@ -90,7 +90,7 @@ export default class ShowCard extends Component {
                ampersand + 'email=' + this.state.email +
                ampersand + 'd=' + this.state.department
     console.log('para qr code', encodeURIComponent(para))
-    let src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" + genCardUrl + encodeURIComponent(para) + "&choe=UTF-8"
+    let src = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + genCardUrl + encodeURIComponent(para) + "&choe=UTF-8"
     await this.setState({qrImageUrl : src})
   }
 
@@ -106,7 +106,7 @@ export default class ShowCard extends Component {
         {/*<Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>*/}
         <View style={styles.qrWrapper}>
           <Image source={{uri: this.state.qrImageUrl}}
-                  style={{width: 370, height: 370}} />
+                  style={{width: 350, height: 350}} />
         </View>
         <View style={styles.btnWrapper}>
           <Button rounded iconLeft success onPress={() => this._onPressSuccessBtn()}>
