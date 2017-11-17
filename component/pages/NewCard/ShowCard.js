@@ -106,7 +106,7 @@ export default class ShowCard extends Component {
         {/*<Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>*/}
         <View style={styles.qrWrapper}>
           <Image source={{uri: this.state.qrImageUrl}}
-                  style={{width: 380, height: 380}} />
+                  style={{width: 370, height: 370}} />
         </View>
         <View style={styles.btnWrapper}>
           <Button rounded iconLeft success onPress={() => this._onPressSuccessBtn()}>
