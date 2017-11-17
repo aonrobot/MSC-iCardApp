@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
   qrWrapper : {
     flex : 1,
     flexDirection : 'row',
-    justifyContent : 'center'
+    justifyContent : 'center',
+    padding : 10
   },
   btnWrapper : {
     paddingTop : 25,
