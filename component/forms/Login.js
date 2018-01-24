@@ -22,7 +22,7 @@ export default class LoginForm extends Component {
 
         username = username.toLowerCase()
 
-        if(username === '' ){ //|| password === ''
+        if(username === '' || password === ''){
             alert('กรุณากรอก Username หรือ Password ก่อนครับ')
         }else{
             this.setState({isLoad : true})
@@ -35,7 +35,7 @@ export default class LoginForm extends Component {
                 },
                 body: JSON.stringify({
                     username : username,
-                    password : 'admin123' //password
+                    password : password
                 })
             })
             .then((response) => {
@@ -57,7 +57,7 @@ export default class LoginForm extends Component {
             })
             .catch((error) => {
                 this.setState({isLoad : false})
-                alert('กรุณาตรวจสอบการเชื่อมต่อ Internet')
+                alert(error)
                 //alert(error)
             })
         }
