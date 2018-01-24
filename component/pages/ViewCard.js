@@ -6,6 +6,7 @@ import { Container, Header, Content,
      Left, Right, Body, Thumbnail} from 'native-base';
 
 import LayoutHeader from '../layout/LayoutHeader'
+import LayoutFooter from '../layout/LayoutFooter'
 
 import {Actions} from 'react-native-router-flux'
 
@@ -13,10 +14,10 @@ export default class ViewCard extends Component {
   constructor(props){
       super(props)
       this.state = {
-        headerTiile : this.props.fullName,
+        headerTiile : 'View Card',
         headerPage : 'viewcard',
-        cards : {all : []},
-        qrImageUrl : ''
+        
+        qrImageUrl : 'not have image'
       }
   }
 
@@ -26,16 +27,54 @@ export default class ViewCard extends Component {
 
   async _deleteCard() {
 
-    let cards = this.state.cards
+    let username = this.props.userLogin
+    let cardId = this.props.cardId
+
+    /*et cards = this.state.cards
     cards.all.splice(this.props.cardId, 1)
     console.log('deleteCard', cards)
     
-    await AsyncStorage.setItem('@cards', JSON.stringify(cards))
+    await AsyncStorage.setItem('@cards', JSON.stringify(cards))*/
 
-    Actions.mycard({currentFooterMenu : 'mycard'})
+    Alert.alert(
+      'คุณแน่ใจนะว่าต้องการ ลบ card นี้',
+      'กดปุ่ม Ok เพื่อลบ card',
+      [
+        {text: 'Cancel', onPress: () => false, style: 'cancel'},
+        {text: 'OK', onPress: () => {
+          
+          fetch('http://10.200.109.90:8000/api/card/delete', {
+              method: 'POST',
+              timeout: 1,
+              headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  username : username,
+                  cardId : cardId
+              })
+          })
+          .then((response) => {
+              return response.json()
+          })
+          .then(async(responseJSON)=>{
+              let result = responseJSON.result
+              if(result == true || result == 'true'){
+                  Actions.mycard({currentFooterMenu : 'mycard'})
+              }
+          })
+          .catch((error) => {
+              alert('ไม่สามารถลบ card ได้ กรุณาตรวจสอบการเชื่อมต่อ Internet')
+          })
+
+        }},
+      ], { cancelable: false }
+    )
+
   }
 
-  async _updateList () {
+  /*async _updateList () {
     
     let result = await AsyncStorage.getItem('@cards');
     let getCards = await JSON.parse(result) || {all : []}
@@ -47,16 +86,40 @@ export default class ViewCard extends Component {
     
     //this._changeTextInputValue('')
 
+  }*/
+
+  _getCard() {
+    fetch('http://10.200.109.90:8000/api/card/' + this.props.cardId, {
+        method: 'GET'
+    })
+    .then((response) => {
+        return response.json()
+    })
+    .then(async(responseJSON)=>{
+        
+        let result = responseJSON.result
+        let data = responseJSON.data[0]
+        if(result == true || result == 'true'){          
+          this.setState({
+            qrImageUrl : data.qrcode_url,
+            headerTiile : data.nameEN + ' ' + data.lastnameEN
+          })
+        }
+    })
+    .catch((error) => {
+        alert('ไม่สามารถดึงข้อมมูล card มาได้ กรุณาตรวจสอบการเชื่อมต่อ Internet')
+    })
   }
 
   componentWillMount(){
-    this._updateList()
+    this._getCard()
   }
 
   render() {
     return (
     <Container>
       <LayoutHeader title={this.state.headerTiile} page={this.state.headerPage}/>
+
       <Content style={styles.container}>
         <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>
         <View style={styles.qrWrapper}>
@@ -70,6 +133,8 @@ export default class ViewCard extends Component {
           </Button>
         </View>
       </Content>
+
+      <LayoutFooter/>
     </Container>
     )
   }

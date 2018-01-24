@@ -6,10 +6,16 @@ import {Actions} from 'react-native-router-flux'
 export default class LayoutHeader extends Component {
   constructor(props){
     super(props)
-    let title = this.props.title || 'iCard'
     let callFrom = this.props.page || '' 
-    this.state = {title : title, callFrom : callFrom}
+    this.state = {title : 'iCard', callFrom : callFrom}
   }
+
+  componentWillMount() {
+    this.setState({
+      title: this.props.title
+    });
+  }
+
   componentWillReceiveProps(nextProps){
     //alert(nextProps.title)
   }

@@ -6,6 +6,7 @@ import { Container, Header, Content,
      Left, Right, Body, Thumbnail} from 'native-base';
 
 import LayoutHeader from '../../layout/LayoutHeader'
+import LayoutFooter from '../../layout/LayoutFooter'
 
 import {Actions} from 'react-native-router-flux'
 
@@ -32,7 +33,7 @@ export default class ShowCard extends Component {
         email : this.props.info.email,
         company :  this.props.info.company,
         avatar : this.props.info.avatar,
-        qrImageUrl : "",
+        qrImageUrl : "uri",
       }
 
   }
@@ -42,7 +43,7 @@ export default class ShowCard extends Component {
   }
 
   async _addCard() {
-    let readCard = await AsyncStorage.getItem('@cards');
+    /*let readCard = await AsyncStorage.getItem('@cards');
     let cards = JSON.parse(readCard) || {all : []}
 
     cards.all.push(
@@ -63,13 +64,49 @@ export default class ShowCard extends Component {
       }
     )
 
-    await AsyncStorage.setItem('@cards', JSON.stringify(cards))
+    await AsyncStorage.setItem('@cards', JSON.stringify(cards))*/
 
-    Actions.mycard({currentFooterMenu : 'mycard'})
+    let userInfo = await AsyncStorage.getItem('@userInfo')
+    userInfo = await JSON.parse(userInfo)[0]
+
+    fetch('http://10.200.109.90:8000/api/card/create', {
+        method: 'POST',
+        timeout: 1,
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            u : userInfo.Login.toLowerCase(),
+            c : this.props.info.company,
+            nT : this.props.info.nameTH,
+            lT : this.props.info.lastnameTH,
+            nE : this.props.info.nameEN,
+            lE : this.props.info.lastnameEN,
+            p : this.props.info.position,
+            d : this.props.info.department,
+            cT : this.props.info.contactTel,
+            cD : this.props.info.contactDir,
+            cF : this.props.info.contactFax,
+            e : this.props.info.email
+        })
+    })
+    .then((response) => {
+        return response.json()
+    })
+    .then(async(responseJSON)=>{
+        let result = responseJSON.result
+        if(result == true || result == 'true'){
+            Actions.mycard()
+        }
+    })
+    .catch((error) => {
+        alert('ไม่สามารถบันทึก card ได้ในขนาดนี้ กรุณาตรวจสอบการเชื่อมต่อ Internet')
+    })
+
   }
 
   async genQr(){
-    let genCardUrl = 'http://mis_test.metrosystems.co.th/qrlab/business_card/genCard.php';
     
     let questionMark = '%3F'
     let ampersand = '%26'
@@ -79,7 +116,7 @@ export default class ShowCard extends Component {
       ampersand = '&'
     }
 
-    let para = questionMark + 'nTH=' + this.state.nameTH +
+    /*let para = questionMark + 'nTH=' + this.state.nameTH +
                ampersand + 'lnTH=' + this.state.lastnameTH  +
                ampersand + 'nEN=' + this.state.nameEN  +
                ampersand + 'lnEN=' + this.state.lastnameEN +
@@ -88,10 +125,36 @@ export default class ShowCard extends Component {
                ampersand + 'dir=' + this.state.contactDir +
                ampersand + 'fax=' + this.state.contactFax +
                ampersand + 'email=' + this.state.email +
-               ampersand + 'd=' + this.state.department
-    console.log('para qr code', encodeURIComponent(para))
-    let src = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + genCardUrl + encodeURIComponent(para) + "&choe=UTF-8"
-    await this.setState({qrImageUrl : src})
+               ampersand + 'd=' + this.state.department*/
+
+    
+
+    fetch('http://10.200.109.90:8000/api/card/last', {method: 'GET'})
+    .then((response) => {
+        return response.json()
+    })
+    .then(async(responseJSON)=>{
+        let result = responseJSON.result
+        let data = responseJSON.data
+
+        let lastCardId = 0
+        let CARD_url = ''
+        if(result == true || result == 'true'){                
+          lastCardId = data.CARD_id
+          CARD_url = data.CARD_url
+        }
+
+        let para = questionMark + 'id=' + (lastCardId + 1)
+
+        let src = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + CARD_url + encodeURIComponent(para) + "&choe=UTF-8"
+
+        this.setState({qrImageUrl : src})
+    })
+    .catch((error) => {
+        alert('ไม่สามารถติดต่อ Server ได้')
+        Actions.mycard()
+    })
+
   }
 
   componentWillMount() {
@@ -115,6 +178,7 @@ export default class ShowCard extends Component {
           </Button>
         </View>
       </Content>
+      <LayoutFooter/>
     </Container>
     )
   }

@@ -16,10 +16,12 @@ import LayoutHeader from './component/layout/LayoutHeader'
 import LayoutFooter from './component/layout/LayoutFooter'
 
 import Splash from './Splash'
-import MyCard from './component/pages/MyCard'
-import ViewCard from './component/pages/ViewCard'
-import CardInfo from './component/pages/NewCard/CardInfo'
-import ShowCard from './component/pages/NewCard/ShowCard'
+import MyCard from './component/pages/MyCard' // Show All Exist Card
+import ViewCard from './component/pages/ViewCard' // View Card
+
+import CardInfo from './component/pages/NewCard/CardInfo' // Enter Card Info for Generate
+import ShowCard from './component/pages/NewCard/ShowCard' // Show Generate Card
+import Profile from './component/pages/Profile' // Profile
 
 export default class App extends Component<{}> {
 
@@ -64,18 +66,18 @@ export default class App extends Component<{}> {
       <Container>
         <Router>  
             <Scene key='root'>
-                <Scene key="splash" component={Splash} hideNavBar={true} initial/>
-                <Scene key="mycard" component={MyCard} title="Card ทั้งหมดของฉัน" hideNavBar={true} type="replace"/>
+                <Scene key="splash" component={Splash} hideNavBar={true} type="replace" initial/>
+                
+                <Scene key="mycard" component={MyCard} title="Card ทั้งหมดของฉัน" hideNavBar={true} hideTabBar={true} type="replace"/>
                 <Scene key="viewcard" component={ViewCard} hideNavBar={true}/>
 
                 <Scene key="cardinfo" component={CardInfo} hideNavBar={true} type="replace"/>
                 <Scene key="showcard" component={ShowCard} hideNavBar={true}/>
 
+                <Scene key="profile" component={Profile} hideNavBar={true} type="replace"/>
             </Scene>
         </Router>
-        <LayoutFooter/>
       </Container>
-    );
+    )
   }
 }
-

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage } from 'react-native';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Button, Icon } from 'native-base';
+import { StyleSheet, View, AsyncStorage, ActivityIndicator } from 'react-native';
+import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Button, Icon, H2 } from 'native-base';
 
 import LayoutHeader from '../layout/LayoutHeader'
+import LayoutFooter from '../layout/LayoutFooter'
 
 import {Actions} from 'react-native-router-flux'
 
@@ -10,52 +11,132 @@ export default class MyCard extends Component {
     constructor(props){
         super(props)
         this.state = {
-            headerTiile : 'My E-Card',
-            cards : {all : []} 
+            isLoad : false,
+            headerTitle : 'My iCard',
+            userLogin : '',
+            cards : []
         }
-        console.log('welcome')
     }
 
-    _onPressViewCard (id, name, lastName){
-        //alert(this.state.info.nameTH)
-        let fullName = name + ' ' + lastName
-        Actions.viewcard({cardId : id, fullName : fullName})
+    _onPressViewCard (id){
+        Actions.viewcard({cardId : id, userLogin : this.state.userLogin})
     }
 
-    async _updateList () {
+    _getUserLoginDetail(username){
+
+        this.setState({isLoad : true})
         
-        let result = await AsyncStorage.getItem('@cards');
+        fetch('http://10.200.109.90:8000/api/employee/' + username, {
+            method: 'GET'
+        })
+        .then((response) => {
+            if (response.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return response.json()
+        })
+        .then(async(responseJSON)=>{
+            
+            let result = responseJSON.result
+            let data = responseJSON.data
+            this.setState({isLoad : false})
+            if(result == true || result == 'true'){                
+                await AsyncStorage.setItem('@userInfo', JSON.stringify(data))
+                this.setState({userLogin : data[0].Login})
+            }else{
+                alert('ไม่พบข้อมูลผู้ใช้งานในระบบ กรุณาติดต่อผู้ดูแลระบบ')
+                await AsyncStorage.setItem('@userLogin', '')
+                await AsyncStorage.setItem('@isLogin', 'false')
+                Actions.splash()
+            }
+        })
+        .catch((error) => {
+            this.setState({isLoad : false})
+            AsyncStorage.setItem('@userLogin', '')
+            AsyncStorage.setItem('@isLogin', 'false')
+            alert('ไม่สามารถติดต่อ Server ได้')
+            Actions.splash()
+        })
+    }
+
+    async _checkLogin(){
+        let isLogin = await AsyncStorage.getItem('@isLogin')
+        let userLogin = await AsyncStorage.getItem('@userLogin')
+        if(isLogin == 'true' || isLogin === true){
+            this._getUserLoginDetail(userLogin)
+            this._updateList(userLogin)
+        }else{
+            alert("Don't login please login first!!")
+            Actions.splash()
+        }
+    }
+
+    async _updateList(username) {
+        /*let result = await AsyncStorage.getItem('@cards');
         let getCards = await JSON.parse(result) || {all : []}
         console.log('get Card', getCards)
-        this.setState({cards : getCards.all})
-        
+        this.setState({cards : getCards.all})*/        
         //this._changeTextInputValue('')
+
+        fetch('http://10.200.109.90:8000/api/card/of/' + username, {
+            method: 'GET'
+        })
+        .then((response) => {
+            return response.json()
+        })
+        .then(async(responseJSON)=>{
+            
+            let result = responseJSON.result
+            let data = responseJSON.data
+            this.setState({isLoad : false})
+            if(result == true || result == 'true'){                
+                this.setState({cards : data})
+            }
+        })
+        .catch((error) => {
+            this.setState({isLoad : false})
+            alert('ไม่สามารถดึงข้อมมูล card มาได้ กรุณาตรวจสอบการเชื่อมต่อ Internet')
+        })
 
     }
 
     componentWillMount(){
-        this._updateList()
+        this._checkLogin()
+    }
+
+    componentDidMount(){
+        
     }
     
     render() {
 
-      return (
-        <Container>
-            <LayoutHeader title={this.state.headerTiile}/>
-            <Content style={styles.container}>
+      var showCardContainer;
+
+      if(this.state.cards.length <= 0){
+        showCardContainer = 
+          (
+            <View style={styles.noCardContainer}>
+                <Icon style={styles.icon} name="md-cloud-outline" />
+                <H2 style={styles.noCardLabel}>ยังไม่มี Card ที่สร้างไว้เลย :(</H2>
+            </View>
+          )
+      }else{
+        showCardContainer = 
+          (
+            <View>
                 <List>
                     {
                         [...this.state.cards].map(
                             (x, i) => 
                             <ListItem key={i}>
-                                <Thumbnail square source={{ uri: x.avatar }} />
+                                <Thumbnail square source={{ uri: x.avatar_url }} />
                                 <Body>
                                     <Text>{x.nameEN} {x.lastnameEN}</Text>
                                     <Text note>{x.position} ({x.department})</Text>
-                                    <Text note>{x.company}</Text>
+                                    <Text note>{x.companyName}</Text>
                                 </Body>
                                 <View style={styles.viewBtnWrapper}>
-                                    <Button bordered onPress={() => this._onPressViewCard(i, x.nameEN, x.lastnameEN)}>
+                                    <Button bordered onPress={() => this._onPressViewCard(x.id)}>
                                         <Text>View</Text>
                                     </Button>
                                 </View>
@@ -85,7 +166,32 @@ export default class MyCard extends Component {
                         </Button>
                     </ListItem>*/}
                 </List>
+            </View>
+          )
+      }
+      
+      return (
+        <Container>
+            {
+                <LayoutHeader title={this.state.headerTitle}/>
+            }
+
+            <Content style={styles.container}>
+
+            {
+                this.state.isLoad ?
+                    
+                <ActivityIndicator size="large" color="#3498db"/>
+
+                :
+
+                showCardContainer
+                
+            }
+            
             </Content>
+            <LayoutFooter/>
+
         </Container>
       )
     }
@@ -94,6 +200,19 @@ export default class MyCard extends Component {
 const styles = StyleSheet.create({
     container : {
         backgroundColor : '#FFF',
+    },
+    noCardContainer : {
+        flex : 1,
+        justifyContent : 'center',
+        alignItems : 'center',
+        marginTop : 100
+    },
+    noCardLabel : {
+        color : '#CCC'
+    },
+    icon:{
+        color : '#DDD',
+        fontSize : 58
     },
     avatar : {
         width: 100,

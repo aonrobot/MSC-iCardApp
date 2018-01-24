@@ -2,14 +2,31 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  StatusBar
+  StatusBar,
+  AsyncStorage
 } from 'react-native';
-import {Actions} from 'react-native-router-flux' 
-import { Container, Header, Content, Button, Text, Icon } from 'native-base';
+
+import { Container, Header, Content, Button, Text, Icon, Form, Item, Label, Input } from 'native-base';
+
+import {Actions} from 'react-native-router-flux'
+
+import LoginForm from './component/forms/Login';
+
 export default class Splash extends Component {
 
     constructor(props){
         super(props)
+    }
+
+    async _checkLogin(){
+        let isLogin = await AsyncStorage.getItem('@isLogin')
+        if(isLogin == 'true' || isLogin === true){
+            Actions.mycard()
+        }
+    }
+
+    componentWillMount(){
+        this._checkLogin()
     }
 
     render() {
@@ -22,12 +39,14 @@ export default class Splash extends Component {
             />
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>iCard</Text>
-                <Text style={styles.subtitle}>Powered By MSC</Text>
-                <View style={styles.buttonContainer}>
-                    {/*<Button rounded info onPress={() => Actions.mycard()}>
-                        <Text><Icon ios='ios-home' android="md-home" style={styles.icon}/> เริ่มใช้งาน</Text>
-                    </Button>*/}
-                </View>
+                <Text style={styles.subtitle}>Powered By MSC</Text>                        
+                {/*<Button rounded info onPress={() => Actions.mycard()}>
+                    <Text><Icon ios='ios-home' android="md-home" style={styles.icon}/> เริ่มใช้งาน</Text>
+                </Button>*/}
+            </View>
+
+            <View style={styles.formContainer}>
+                <LoginForm />
             </View>
             
         </Container>
@@ -45,6 +64,8 @@ const styles = StyleSheet.create({
         flex : 1,
         justifyContent : 'center',
         alignItems : 'center'
+    },
+    formContainer :{
     },
     title : {
         color : '#ecf0f1',
