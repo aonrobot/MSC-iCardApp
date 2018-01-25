@@ -180,8 +180,10 @@ export default class MyCard extends Component {
 
             {
                 this.state.isLoad ?
-                    
-                <ActivityIndicator size="large" color="#3498db"/>
+                
+                <View style={styles.activityIndicatior}>
+                    <ActivityIndicator size="large" color="#3498db"/>
+                </View>
 
                 :
 
@@ -198,6 +200,9 @@ export default class MyCard extends Component {
 }
 
 const styles = StyleSheet.create({
+    activityIndicatior : {
+        marginTop : 20
+    },
     container : {
         backgroundColor : '#FFF',
     },

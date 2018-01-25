@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, ActivityIndicator, AsyncStorage, Alert} from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, ActivityIndicator, AsyncStorage, Alert, KeyboardAvoidingView} from 'react-native';
 
 import {Actions} from 'react-native-router-flux'
 
@@ -73,7 +73,7 @@ export default class LoginForm extends Component {
 
                     :
 
-                    <View>
+                    <View style={styles.loginForm}>
                         <TextInput
                             placeholder="Username"
                             placeholderTextColor="rgba(0,0,0,0.2)"
@@ -125,6 +125,9 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: '#FFF',
         paddingHorizontal: 10
+    },
+    loginForm: {
+        marginBottom : 50
     },
     loginContainer: {
         backgroundColor: '#2980b9',
