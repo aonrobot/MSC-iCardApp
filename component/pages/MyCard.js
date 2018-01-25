@@ -26,7 +26,7 @@ export default class MyCard extends Component {
 
         this.setState({isLoad : true})
         
-        fetch('http://10.200.109.90:8000/api/employee/' + username, {
+        fetch('https://fora.metrosystems.co.th/icard/api/employee/' + username, {
             method: 'GET'
         })
         .then((response) => {
@@ -78,7 +78,7 @@ export default class MyCard extends Component {
         this.setState({cards : getCards.all})*/        
         //this._changeTextInputValue('')
 
-        fetch('http://10.200.109.90:8000/api/card/of/' + username, {
+        fetch('https://fora.metrosystems.co.th/icard/api/card/of/' + username, {
             method: 'GET'
         })
         .then((response) => {

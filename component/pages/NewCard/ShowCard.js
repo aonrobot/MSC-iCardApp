@@ -69,7 +69,7 @@ export default class ShowCard extends Component {
     let userInfo = await AsyncStorage.getItem('@userInfo')
     userInfo = await JSON.parse(userInfo)[0]
 
-    fetch('http://10.200.109.90:8000/api/card/create', {
+    fetch('https://fora.metrosystems.co.th/icard/api/card/create', {
         method: 'POST',
         timeout: 1,
         headers: {
@@ -108,13 +108,13 @@ export default class ShowCard extends Component {
 
   async genQr(){
     
-    let questionMark = '%3F'
+    /*let questionMark = '%3F'
     let ampersand = '%26'
 
     if(Platform.OS == 'ios' || Platform.OS == 'android'){
       questionMark = '?'
       ampersand = '&'
-    }
+    }*/
 
     /*let para = questionMark + 'nTH=' + this.state.nameTH +
                ampersand + 'lnTH=' + this.state.lastnameTH  +
@@ -129,7 +129,7 @@ export default class ShowCard extends Component {
 
     
 
-    fetch('http://10.200.109.90:8000/api/card/last', {method: 'GET'})
+    fetch('https://fora.metrosystems.co.th/icard/api/card/nextId', {method: 'GET'})
     .then((response) => {
         return response.json()
     })
@@ -144,9 +144,7 @@ export default class ShowCard extends Component {
           CARD_url = data.CARD_url
         }
 
-        let para = questionMark + 'id=' + (lastCardId + 1)
-
-        let src = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + CARD_url + encodeURIComponent(para) + "&choe=UTF-8"
+        let src = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + CARD_url +"&choe=UTF-8"
 
         this.setState({qrImageUrl : src})
     })

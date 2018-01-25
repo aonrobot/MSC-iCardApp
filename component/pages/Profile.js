@@ -67,7 +67,7 @@ export default class Profile extends Component {
         <Container style={styles.container}>
             <LayoutHeader title={this.state.headerTiile}/>
             <View style={styles.avatarWrapper}>
-              <Thumbnail square large source={{uri: 'http://10.200.109.90:8000/images/unknowAvatar.png'}} />
+              <Thumbnail square large source={{uri: 'https://fora.metrosystems.co.th/icard/images/unknowAvatar.png'}} />
             </View>
             <Content style={styles.infoContent}>
               <H1 style={styles.infoTitle}>Name</H1>

@@ -26,7 +26,7 @@ export default class LoginForm extends Component {
             alert('กรุณากรอก Username หรือ Password ก่อนครับ')
         }else{
             this.setState({isLoad : true})
-            fetch('http://10.200.109.90:8000/api/ldap/checkAuth', {
+            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth', {
                 method: 'POST',
                 timeout: 1,
                 headers: {
@@ -64,7 +64,7 @@ export default class LoginForm extends Component {
     }
     render(){
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
                 {
                     this.state.isLoad ?
@@ -72,11 +72,15 @@ export default class LoginForm extends Component {
                     <ActivityIndicator size="large" color="#FFF"/>
 
                     :
+
                     <View>
                         <TextInput
                             placeholder="Username"
                             placeholderTextColor="rgba(0,0,0,0.2)"
                             underlineColorAndroid="rgba(255,255,255,0)"
+                            returnKeyType="next"
+                            onSubmitEditing={() => this.passwordInput.focus()}
+                            autoCapitalize="none"
                             style={styles.input}
                             onChangeText={(text) => this.setState(
                                 prevState => ({
@@ -88,8 +92,10 @@ export default class LoginForm extends Component {
                             placeholder="Password"
                             placeholderTextColor="rgba(0,0,0,0.2)"
                             underlineColorAndroid="rgba(255,255,255,0)"
+                            returnKeyType="go"
                             style={styles.input}
                             secureTextEntry={true}
+                            ref={(input) => this.passwordInput = input}
                             onChangeText={(text) => this.setState(
                                 prevState => ({
                                     password : text
@@ -103,7 +109,7 @@ export default class LoginForm extends Component {
                     </View>
                 }
                 
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
