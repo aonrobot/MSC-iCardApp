@@ -64,7 +64,7 @@ export default class LoginForm extends Component {
     }
     render(){
         return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <View style={styles.container}>
 
                 {
                     this.state.isLoad ?
@@ -73,7 +73,7 @@ export default class LoginForm extends Component {
 
                     :
 
-                    <KeyboardAvoidingView behavior="padding" style={styles.loginForm}>
+                    <View style={styles.loginForm}>
                         <TextInput
                             placeholder="Username"
                             placeholderTextColor="rgba(0,0,0,0.2)"
@@ -106,10 +106,10 @@ export default class LoginForm extends Component {
                         <TouchableOpacity style={styles.loginContainer} onPress={()=>{this._onPressLogin()}}>
                             <Text style={styles.loginButton}>LOGIN</Text>
                         </TouchableOpacity>
-                    </KeyboardAvoidingView>
+                    </View>
                 }
                 
-            </KeyboardAvoidingView>
+            </View>
         )
     }
 }

@@ -32,7 +32,7 @@ export default class Splash extends Component {
     render() {
       return (
         
-        <Container style={styles.container}>
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <StatusBar
                 backgroundColor="#1abc9c"
                 barStyle="light-content"
@@ -49,7 +49,7 @@ export default class Splash extends Component {
                 <LoginForm />
             </View>
             
-        </Container>
+        </KeyboardAvoidingView>
       )
     }
 }
