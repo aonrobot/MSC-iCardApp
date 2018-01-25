@@ -73,7 +73,7 @@ export default class LoginForm extends Component {
 
                     :
 
-                    <View style={styles.loginForm}>
+                    <KeyboardAvoidingView behavior="padding" style={styles.loginForm}>
                         <TextInput
                             placeholder="Username"
                             placeholderTextColor="rgba(0,0,0,0.2)"
@@ -106,7 +106,7 @@ export default class LoginForm extends Component {
                         <TouchableOpacity style={styles.loginContainer} onPress={()=>{this._onPressLogin()}}>
                             <Text style={styles.loginButton}>LOGIN</Text>
                         </TouchableOpacity>
-                    </View>
+                    </KeyboardAvoidingView>
                 }
                 
             </KeyboardAvoidingView>
