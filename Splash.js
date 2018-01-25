@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   StatusBar,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView
 } from 'react-native';
 
 import { Container, Header, Content, Button, Text, Icon, Form, Item, Label, Input } from 'native-base';
