@@ -90,19 +90,19 @@ export default class ShowCard extends Component {
             e : this.props.info.email
         })*/
 
-    let company = (this.props.info.company       == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.company)
-    let nameTH = (this.props.info.nameTH         == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.nameTH)
-    let lastnameTH = (this.props.info.lastnameTH == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.lastnameTH)
-    let nameEN = (this.props.info.nameEN         == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.nameEN)
-    let lastnameEN = (this.props.info.lastnameEN == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.lastnameEN)
-    let position = (this.props.info.position     == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.position)
-    let department = (this.props.info.department == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.department)
-    let contactTel = (this.props.info.contactTel == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.contactTel)
-    let contactDir = (this.props.info.contactDir == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.contactDir)
-    let contactFax = (this.props.info.contactFax == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.contactFax)
-    let email = (this.props.info.email           == "" || this.props.info.contactFax == null) ? "%20" : encodeURI(this.props.info.email)
+    let company = (this.props.info.company       == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.company)
+    let nameTH = (this.props.info.nameTH         == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.nameTH)
+    let lastnameTH = (this.props.info.lastnameTH == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.lastnameTH)
+    let nameEN = (this.props.info.nameEN         == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.nameEN)
+    let lastnameEN = (this.props.info.lastnameEN == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.lastnameEN)
+    let position = (this.props.info.position     == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.position)
+    let department = (this.props.info.department == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.department)
+    let contactTel = (this.props.info.contactTel == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.contactTel)
+    let contactDir = (this.props.info.contactDir == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.contactDir)
+    let contactFax = (this.props.info.contactFax == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.contactFax)
+    let email = (this.props.info.email           == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.email)
 
-    fetch('https://fora.metrosystems.co.th/icard/api/card/create/' 
+    fetch('http://fora.metrosystems.co.th/icard/api/card/create/' 
     + userInfo.Login.toLowerCase() + '/' 
     + company + '/' 
     + nameTH + '/' 
@@ -153,7 +153,7 @@ export default class ShowCard extends Component {
 
     
 
-    fetch('https://fora.metrosystems.co.th/icard/api/card/nextId', {method: 'GET'})
+    fetch('http://fora.metrosystems.co.th/icard/api/card/nextId', {method: 'GET'})
     .then((response) => {
         return response.json()
     })
@@ -168,7 +168,7 @@ export default class ShowCard extends Component {
           CARD_url = data.CARD_url
         }
 
-        let src = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + CARD_url +"&choe=UTF-8"
+        let src = "http://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + CARD_url +"&choe=UTF-8"
 
         this.setState({qrImageUrl : src})
     })

@@ -26,7 +26,7 @@ export default class MyCard extends Component {
 
         this.setState({isLoad : true})
         
-        fetch('https://fora.metrosystems.co.th/icard/api/employee/' + username, {
+        fetch('http://fora.metrosystems.co.th/icard/api/employee/' + username, {
             method: 'GET'
         })
         .then((response) => {
@@ -78,7 +78,7 @@ export default class MyCard extends Component {
         this.setState({cards : getCards.all})*/        
         //this._changeTextInputValue('')
 
-        fetch('https://fora.metrosystems.co.th/icard/api/card/of/' + username, {
+        fetch('http://fora.metrosystems.co.th/icard/api/card/of/' + username, {
             method: 'GET'
         })
         .then((response) => {
@@ -180,7 +180,7 @@ export default class MyCard extends Component {
 
             {
                 this.state.isLoad ?
-                
+
                 <View style={styles.activityIndicatior}>
                     <ActivityIndicator size="large" color="#3498db"/>
                 </View>

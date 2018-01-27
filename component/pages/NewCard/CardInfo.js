@@ -68,7 +68,7 @@ export default class CardInfo extends Component {
 
     getAllCompany(){
         
-        fetch('https://fora.metrosystems.co.th/icard/api/company', {
+        fetch('http://fora.metrosystems.co.th/icard/api/company', {
             method: 'GET'
         })
         .then((response) => {
