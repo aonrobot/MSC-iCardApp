@@ -17,7 +17,7 @@ export default class LoginForm extends Component {
 
     _onPressLogin (){
 
-        let username = this.state.username
+        let username = (this.state.username).replace('@metrosystems.co.th','')
         let password = this.state.password
 
         username = username.toLowerCase()
