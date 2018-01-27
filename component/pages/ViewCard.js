@@ -43,7 +43,7 @@ export default class ViewCard extends Component {
         {text: 'Cancel', onPress: () => false, style: 'cancel'},
         {text: 'OK', onPress: () => {
           
-          fetch('http://fora.metrosystems.co.th/icard/api/card/delete/' + username + '/' + cardId, {
+          fetch('https://fora.metrosystems.co.th/icard/api/card/delete/' + username + '/' + cardId, {
               method: 'GET'/*,
               timeout: 1,
               headers: {
@@ -89,7 +89,7 @@ export default class ViewCard extends Component {
   }*/
 
   _getCard() {
-    fetch('http://fora.metrosystems.co.th/icard/api/card/' + this.props.cardId, {
+    fetch('https://fora.metrosystems.co.th/icard/api/card/' + this.props.cardId, {
         method: 'GET'
     })
     .then((response) => {

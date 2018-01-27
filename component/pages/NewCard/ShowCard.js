@@ -102,7 +102,7 @@ export default class ShowCard extends Component {
     let contactFax = (this.props.info.contactFax == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.contactFax)
     let email = (this.props.info.email           == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.email)
 
-    fetch('http://fora.metrosystems.co.th/icard/api/card/create/' 
+    fetch('https://fora.metrosystems.co.th/icard/api/card/create/' 
     + userInfo.Login.toLowerCase() + '/' 
     + company + '/' 
     + nameTH + '/' 
@@ -153,7 +153,7 @@ export default class ShowCard extends Component {
 
     
 
-    fetch('http://fora.metrosystems.co.th/icard/api/card/nextId', {method: 'GET'})
+    fetch('https://fora.metrosystems.co.th/icard/api/card/nextId', {method: 'GET'})
     .then((response) => {
         return response.json()
     })
@@ -168,7 +168,7 @@ export default class ShowCard extends Component {
           CARD_url = data.CARD_url
         }
 
-        let src = "http://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + CARD_url +"&choe=UTF-8"
+        let src = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=" + CARD_url +"&choe=UTF-8"
 
         this.setState({qrImageUrl : src})
     })

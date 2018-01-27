@@ -36,7 +36,7 @@ export default class LoginForm extends Component {
                     username : username,
                     password : password
                 })*/
-            fetch('http://fora.metrosystems.co.th/icard/api/ldap/checkAuth/' + encodeURIComponent(username) + '/' + encodeURIComponent(password), {method: 'GET'})
+            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth/' + encodeURIComponent(username) + '/' + encodeURIComponent(password), {method: 'GET'})
             .then((response) => {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");
