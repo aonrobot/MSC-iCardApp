@@ -69,52 +69,28 @@ export default class ShowCard extends Component {
     let userInfo = await AsyncStorage.getItem('@userInfo')
     userInfo = await JSON.parse(userInfo)[0]
 
-    /*,
-        timeout: 1,
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            u : userInfo.Login.toLowerCase(),
-            c : this.props.info.company,
-            nT : this.props.info.nameTH,
-            lT : this.props.info.lastnameTH,
-            nE : this.props.info.nameEN,
-            lE : this.props.info.lastnameEN,
-            p : this.props.info.position,
-            d : this.props.info.department,
-            cT : this.props.info.contactTel,
-            cD : this.props.info.contactDir,
-            cF : this.props.info.contactFax,
-            e : this.props.info.email
-        })*/
-
-    let company = (this.props.info.company       == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.company)
-    let nameTH = (this.props.info.nameTH         == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.nameTH)
-    let lastnameTH = (this.props.info.lastnameTH == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.lastnameTH)
-    let nameEN = (this.props.info.nameEN         == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.nameEN)
-    let lastnameEN = (this.props.info.lastnameEN == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.lastnameEN)
-    let position = (this.props.info.position     == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.position)
-    let department = (this.props.info.department == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.department)
-    let contactTel = (this.props.info.contactTel == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.contactTel)
-    let contactDir = (this.props.info.contactDir == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.contactDir)
-    let contactFax = (this.props.info.contactFax == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.contactFax)
-    let email = (this.props.info.email           == "" || this.props.info.contactFax == null) ? "%20" : encodeURIComponent(this.props.info.email)
-
-    fetch('https://fora.metrosystems.co.th/icard/api/card/create/' 
-    + userInfo.Login.toLowerCase() + '/' 
-    + company + '/' 
-    + nameTH + '/' 
-    + lastnameTH + '/' 
-    + nameEN + '/' 
-    + lastnameEN + '/' 
-    + position + '/' 
-    + department + '/' 
-    + contactTel + '/' 
-    + contactDir + '/' 
-    + contactFax + '/' 
-    + email, {method: 'GET'})
+    fetch('https://fora.metrosystems.co.th/icard/api/card/create', {
+      method: 'POST',
+      timeout: 1,
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          u : userInfo.Login.toLowerCase(),
+          c : this.props.info.company,
+          nT : this.props.info.nameTH,
+          lT : this.props.info.lastnameTH,
+          nE : this.props.info.nameEN,
+          lE : this.props.info.lastnameEN,
+          p : this.props.info.position,
+          d : this.props.info.department,
+          cT : this.props.info.contactTel,
+          cD : this.props.info.contactDir,
+          cF : this.props.info.contactFax,
+          e : this.props.info.email
+      })
+    })
     .then((response) => {
         return response.json()
     })

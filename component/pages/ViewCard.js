@@ -43,8 +43,8 @@ export default class ViewCard extends Component {
         {text: 'Cancel', onPress: () => false, style: 'cancel'},
         {text: 'OK', onPress: () => {
           
-          fetch('https://fora.metrosystems.co.th/icard/api/card/delete/' + username + '/' + cardId, {
-              method: 'GET'/*,
+          fetch('https://fora.metrosystems.co.th/icard/api/card/delete', {
+              method: 'POST',
               timeout: 1,
               headers: {
                   Accept: 'application/json',
@@ -53,7 +53,7 @@ export default class ViewCard extends Component {
               body: JSON.stringify({
                   username : username,
                   cardId : cardId
-              })*/
+              })
           })
           .then((response) => {
               return response.json()

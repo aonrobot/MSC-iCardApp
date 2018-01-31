@@ -26,7 +26,9 @@ export default class LoginForm extends Component {
             alert('กรุณากรอก Username หรือ Password ก่อนครับ')
         }else{
             this.setState({isLoad : true})
-            /*,
+
+            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth', {
+                method: 'POST',
                 timeout: 1,
                 headers: {
                     Accept: 'application/json',
@@ -35,8 +37,8 @@ export default class LoginForm extends Component {
                 body: JSON.stringify({
                     username : username,
                     password : password
-                })*/
-            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth/' + encodeURIComponent(username) + '/' + encodeURIComponent(password), {method: 'GET'})
+                })
+            })
             .then((response) => {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");
