@@ -31,7 +31,7 @@ export default class LoginForm extends Component {
                 method: 'POST',
                 timeout: 1,
                 headers: {
-                    Accept: 'application/json',
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
