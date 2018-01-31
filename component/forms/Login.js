@@ -29,11 +29,9 @@ export default class LoginForm extends Component {
 
             fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth/', {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Cache-Control' : 'no-cache'
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     username : username,
@@ -60,7 +58,6 @@ export default class LoginForm extends Component {
             .catch((error) => {
                 this.setState({isLoad : false})
                 alert(error)
-                //alert(error)
             })
         }
     }
