@@ -27,16 +27,17 @@ export default class LoginForm extends Component {
         }else{
             this.setState({isLoad : true})
 
-            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth', {
+            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth/', {
                 method: 'POST',
-                timeout: 1,
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Cache-Control' : 'no-cache'
                 },
                 body: JSON.stringify({
                     username : username,
-                    password : password
+                    password : password,
                 })
             })
             .then((response) => {
