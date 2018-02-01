@@ -17,10 +17,14 @@ export default class LoginForm extends Component {
 
     _onPressLogin (){
 
+        //fetch('https://google.com/').then(() => console.log('yeah'));
+
         let username = (this.state.username).replace('@metrosystems.co.th','')
         let password = this.state.password
 
         username = username.toLowerCase()
+
+        console.log('click _onPressLogin')
 
         if(username === '' || password === ''){
             alert('กรุณากรอก Username หรือ Password ก่อนครับ')
@@ -39,6 +43,7 @@ export default class LoginForm extends Component {
                 })
             })
             .then((response) => {
+                console.log(response)
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");
                 }
@@ -57,7 +62,8 @@ export default class LoginForm extends Component {
             })
             .catch((error) => {
                 this.setState({isLoad : false})
-                alert(error)
+                alert(error.message)
+                alert(error.stack)
             })
         }
     }
