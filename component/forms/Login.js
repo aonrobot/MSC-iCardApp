@@ -31,7 +31,7 @@ export default class LoginForm extends Component {
         }else{
             this.setState({isLoad : true})
 
-            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth/', {
+            fetch('https://fora.metrosystems.co.th/icard/api/ldap/checkAuth', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -63,7 +63,7 @@ export default class LoginForm extends Component {
             .catch((error) => {
                 this.setState({isLoad : false})
                 alert(error.message)
-                alert(error.stack)
+                //alert(error.stack)
             })
         }
     }
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     loginForm: {
-        marginBottom : 20
+        marginBottom : 30,
+        marginTop : 60
     },
     loginContainer: {
         backgroundColor: '#2980b9',

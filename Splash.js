@@ -64,7 +64,9 @@ const styles = StyleSheet.create({
     titleContainer :{
         flex : 1,
         justifyContent : 'center',
-        alignItems : 'center'
+        alignItems : 'center',
+        paddingTop : 60,
+        paddingBottom : 20,
     },
     formContainer :{
     },
