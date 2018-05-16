@@ -67,8 +67,10 @@ export default class CardInfo extends Component {
     }
 
     getAllCompany(){
+
+        let userLogin = await AsyncStorage.getItem('@userLogin')
         
-        fetch('https://fora.metrosystems.co.th/icard/api/company', {
+        fetch('https://fora.metrosystems.co.th/icard/api/company/' + userLogin, {
             method: 'GET'
         })
         .then((response) => {
@@ -82,7 +84,7 @@ export default class CardInfo extends Component {
             let result = responseJSON.result
             let data = responseJSON.data
             this.setState({isLoad : false})
-
+            
             let defaultCompany = data[3].company_code || data[0].company_code
             if(result == true || result == 'true'){                
                 this.setState({

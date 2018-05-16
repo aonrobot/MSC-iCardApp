@@ -121,7 +121,13 @@ export default class ViewCard extends Component {
       <LayoutHeader title={this.state.headerTiile} page={this.state.headerPage}/>
 
       <Content style={styles.container}>
-        <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ E-Business Card ของคุณ</Text>
+        <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ QR Code Card ของคุณ</Text>
+        <View style={styles.btnWrapper}>
+          <Button rounded iconLeft danger onPress={() => this._onPressDeleteBtn()}>
+            <Icon name='md-trash' />
+            <Text>ดู Business Card ของคุณ</Text>
+          </Button>
+        </View>
         <View style={styles.qrWrapper}>
           <Image source={{uri: this.state.qrImageUrl}}
                   style={{width: 350, height: 350}} />
