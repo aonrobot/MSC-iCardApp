@@ -66,7 +66,7 @@ export default class CardInfo extends Component {
         ))
     }
 
-    getAllCompany(){
+    async getAllCompany(){
 
         let userLogin = await AsyncStorage.getItem('@userLogin')
         
