@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, ActivityIndicator, AsyncStorage, Alert } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, ActivityIndicator, AsyncStorage, Alert, Platform, Linking } from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Button, Icon, Title, H1, H3 } from 'native-base';
 
 import LayoutHeader from '../layout/LayoutHeader'
@@ -35,6 +35,27 @@ export default class Profile extends Component {
         ],
         { cancelable: false }
       )
+    }
+
+
+    openLink(url){
+      Linking.canOpenURL(url).then(supported => {
+        if (supported) {
+          Linking.openURL(url);
+        } else {
+          console.log("Don't know how to open URI: " + url);
+        }
+      });
+    }
+
+    _onPressUpdate(){
+      if(Platform.OS == 'ios'){
+        this.openLink('https://fora.metrosystems.co.th/icard/portal/update/ios');
+      }else if(Platform.OS == 'android'){
+        this.openLink('https://fora.metrosystems.co.th/icard/portal/update/android');
+      }else{
+        alert('Platform not support update')
+      }
     }
 
     async _checkLogin(){
@@ -77,6 +98,9 @@ export default class Profile extends Component {
               <TouchableOpacity style={styles.logoutContainer} onPress={()=>{this._onPressLogout()}}>
                   <Text style={styles.logoutButton}>LOGOUT</Text>
               </TouchableOpacity>
+              <TouchableOpacity style={styles.updateContainer} onPress={()=>{this._onPressUpdate()}}>
+                  <Text style={styles.updateButton}>UPDATE</Text>
+              </TouchableOpacity>
             </View>
             <LayoutFooter/>
         </Container>
@@ -117,9 +141,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#e74c3c',
     paddingVertical: 15,
     width: 250,
-    marginBottom: 70
+    marginBottom: 15
   },
   logoutButton: {
+      textAlign: 'center',
+      color: '#FFF'
+  },
+  updateContainer: {
+    backgroundColor: '#3498db',
+    paddingVertical: 15,
+    width: 250,
+    marginBottom: 15
+  },
+  updateButton: {
       textAlign: 'center',
       color: '#FFF'
   }
