@@ -27,7 +27,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-    	<true/>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>metrosystems.co.th</key>
@@ -35,7 +35,7 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 				<key>NSIncludesSubdomains</key>
-            	<true/>
+				<true/>
 			</dict>
 			<key>localhost</key>
 			<dict>

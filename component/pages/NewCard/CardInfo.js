@@ -80,12 +80,15 @@ export default class CardInfo extends Component {
             return response.json()
         })
         .then(async(responseJSON)=>{
+
+            console.log('responseJSON.data', responseJSON.data)
             
             let result = responseJSON.result
             let data = responseJSON.data
             this.setState({isLoad : false})
             
-            let defaultCompany = data[3].company_code || data[0].company_code
+            let defaultCompany = data[0].company_code
+            
             if(result == true || result == 'true'){                
                 this.setState({
                     companyData : data,
@@ -104,6 +107,7 @@ export default class CardInfo extends Component {
         .catch((error) => {
             this.setState({isLoad : false})
             alert('ไม่สามารถติดต่อ Server ได้ กรูณาลองเข้ามาใหม่ในภายหลังครับ')
+            console.log('error', error)            
             Actions.mycard()
         })
     }

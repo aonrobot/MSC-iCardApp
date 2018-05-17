@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, AsyncStorage, Image, View, Alert } from 'react-native';
+import { StyleSheet, AsyncStorage, Image, View, Alert, Linking } from 'react-native';
 import { Container, Header, Content,
      Button, Text, Icon, Form, Item,
      Label, Input, List, Card, CardItem,
@@ -23,6 +23,16 @@ export default class ViewCard extends Component {
 
   _onPressDeleteBtn (){
     this._deleteCard()
+  }
+  
+  _onPressOpenLinkBtn(url){
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log("Don't know how to open URI: " + url);
+      }
+    });
   }
 
   async _deleteCard() {
@@ -123,20 +133,18 @@ export default class ViewCard extends Component {
       <Content style={styles.container}>
         <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ QR Code Card ของคุณ</Text>
         <View style={styles.btnWrapper}>
-          <Button rounded iconLeft danger onPress={() => this._onPressDeleteBtn()}>
-            <Icon name='md-trash' />
+          <Button style={styles.btn} rounded iconLeft info onPress={() => this._onPressOpenLinkBtn('https://fora.metrosystems.co.th/icard/card/' + this.props.cardId)}>
+            <Icon name='md-information-circle' />
             <Text>ดู Business Card ของคุณ</Text>
+          </Button>
+          <Button style={styles.btn} rounded iconLeft danger onPress={() => this._onPressDeleteBtn()}>
+            <Icon name='md-trash' />
+            <Text>ลบ</Text>
           </Button>
         </View>
         <View style={styles.qrWrapper}>
           <Image source={{uri: this.state.qrImageUrl}}
                   style={{width: 350, height: 350}} />
-        </View>
-        <View style={styles.btnWrapper}>
-          <Button rounded iconLeft danger onPress={() => this._onPressDeleteBtn()}>
-            <Icon name='md-trash' />
-            <Text>ลบ</Text>
-          </Button>
         </View>
       </Content>
 
@@ -159,13 +167,17 @@ const styles = StyleSheet.create({
   },
   qrWrapper : {
     flex : 1,
+    paddingBottom : 30,
     flexDirection : 'row',
     justifyContent : 'center',
     padding : 10
   },
+  btn : {
+    marginRight : 8
+  },
   btnWrapper : {
-    paddingTop : 25,
-    paddingBottom : 40,
+    paddingTop : 15,
+    paddingBottom : 10,
     paddingRight : 15,
     flex : 1,
     flexDirection: 'row',
