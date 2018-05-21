@@ -13,8 +13,8 @@ export default class Profile extends Component {
     super(props)
     this.state = {
         headerTiile : 'Profile',
-        userName : ''
-
+        userName : '',
+        gender : ''
     }
   }
 
@@ -72,7 +72,8 @@ export default class Profile extends Component {
       let userInfo = await AsyncStorage.getItem('@userInfo')
       userInfo = await JSON.parse(userInfo)
       this.setState({
-        userName : userInfo[0].FullNameEng
+        userName : userInfo[0].FullNameEng,
+        gender : userInfo[0].Gender
       })
     }
 
@@ -88,7 +89,13 @@ export default class Profile extends Component {
         <Container style={styles.container}>
             <LayoutHeader title={this.state.headerTiile}/>
             <View style={styles.avatarWrapper}>
-              <Thumbnail square large source={{uri: 'https://fora.metrosystems.co.th/icard/images/unknowAvatar.png'}} />
+              {
+                (this.state.gender == 'Female') ?
+                  <Thumbnail square large source={{uri: 'https://fora.metrosystems.co.th/icard/images/female.png'}} />
+                  
+                :
+                  <Thumbnail square large source={{uri: 'https://fora.metrosystems.co.th/icard/images/male.png'}} />
+              }
             </View>
             <Content style={styles.infoContent}>
               <H1 style={styles.infoTitle}>Name</H1>
@@ -99,7 +106,7 @@ export default class Profile extends Component {
                   <Text style={styles.logoutButton}>LOGOUT</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.updateContainer} onPress={()=>{this._onPressUpdate()}}>
-                  <Text style={styles.updateButton}>UPDATE</Text>
+                  <Text style={styles.updateButton}>Update iCard Version</Text>
               </TouchableOpacity>
             </View>
             <LayoutFooter/>
@@ -127,7 +134,7 @@ const styles = StyleSheet.create({
     paddingLeft: 30
   },
   infoTitle : {
-    color: '#BDC3C7'
+    color: '#a1aab0'
   },
   infoData : {
     color: '#2c3e50'    

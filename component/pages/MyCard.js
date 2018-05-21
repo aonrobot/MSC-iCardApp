@@ -12,7 +12,7 @@ export default class MyCard extends Component {
         super(props)
         this.state = {
             isLoad : false,
-            headerTitle : 'My iCard',
+            headerTitle : 'My Card',
             userLogin : '',
             cards : []
         }

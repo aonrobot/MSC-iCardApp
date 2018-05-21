@@ -131,15 +131,15 @@ export default class ViewCard extends Component {
       <LayoutHeader title={this.state.headerTiile} page={this.state.headerPage}/>
 
       <Content style={styles.container}>
-        <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ QR Code Card ของคุณ</Text>
+        <Text style={styles.title}><Icon name="md-card" style={styles.titleIcon} />   นี่คือ QR Code ของคุณ</Text>
         <View style={styles.btnWrapper}>
           <Button style={styles.btn} rounded iconLeft info onPress={() => this._onPressOpenLinkBtn('https://fora.metrosystems.co.th/icard/card/' + this.props.cardId)}>
-            <Icon name='md-information-circle' />
-            <Text>ดู Business Card ของคุณ</Text>
+            <Icon name='md-eye' />
+            <Text>View</Text>
           </Button>
           <Button style={styles.btn} rounded iconLeft danger onPress={() => this._onPressDeleteBtn()}>
             <Icon name='md-trash' />
-            <Text>ลบ</Text>
+            <Text>Delete</Text>
           </Button>
         </View>
         <View style={styles.qrWrapper}>

@@ -16,7 +16,7 @@ export default class ShowCard extends Component {
   constructor(props){
       super(props)
       this.state = {
-        headerTiile : 'E-Business Card ของคุณ',
+        headerTiile : 'E-Business Card',
         headerPage : 'showcard',
 
         cards : [],
@@ -172,7 +172,7 @@ export default class ShowCard extends Component {
         <View style={styles.btnWrapper}>
           <Button rounded iconLeft success onPress={() => this._onPressSuccessBtn()}>
             <Icon name='md-checkmark-circle' />
-            <Text>Save E-Business ของฉัน</Text>
+            <Text>Save E-Business Card ของฉัน</Text>
           </Button>
         </View>
       </Content>
